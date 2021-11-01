@@ -1,0 +1,9 @@
+{
+  "name": "epyc",
+  "version": "1.0.0",
+  "description": "Epyc is a small, lightweight node.js server.",
+  "main": "index.js",
+  "keywords": ["web", "server", "framework", "api", "app"],
+  "author": "erwinkulasic",
+  "license": "MIT"
+}

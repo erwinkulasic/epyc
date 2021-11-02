@@ -5,7 +5,6 @@
 <img alt="NPM" src="https://img.shields.io/npm/dm/epyc?color=%23D48E28&logo=npm&style=flat-square">
 <img alt="GitHub issues" src="https://img.shields.io/github/issues/erwinkulasic/epyc?color=D48E28&logo=github&style=flat-square">
 <img alt="NPM" src="https://img.shields.io/npm/l/epyc?color=D48E28&style=flat-square">
-<img alt="NPM" src="https://img.shields.io/npm/l/epyc?color=D48E28&style=flat-square">
 </span>
 
 # Installation

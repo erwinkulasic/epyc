@@ -31,10 +31,14 @@ const epyc = require("epyc");
 
 epyc.get('/', (req, res) => res.send('Hello World'));
 
+epyc.post('/api/:id', (req, res) => res.json({ data: req.params.id, query: req.query }));
+
+
 epyc.bootstrap(8080);
 
 ```
 
+<!--
 ## Plugins
 
 You can create your own plugin, publish it or use it yourself. this is how you use a plugin.
@@ -48,6 +52,7 @@ const your_plugin = (req, res) => {
 epyc.use(your_plugin);
 
 ```
+-->
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

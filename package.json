@@ -3,8 +3,18 @@
   "version": "1.0.0",
   "description": "epyc is a small, lightweight node.js server.",
   "main": "index.js",
-  "keywords": ["web", "server", "framework", "api", "app"],
+  "keywords": [
+    "web",
+    "server",
+    "framework",
+    "api",
+    "app"
+  ],
   "author": "erwinkulasic",
   "repository": "git://github.com/erwinkulasic/epyc.git",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "qs": "^6.10.1",
+    "url-pattern": "^1.0.3"
+  }
 }

@@ -24,12 +24,28 @@ yarn add epyc
 
 ## Usage
 
+please create an issue if you have suggestions for improvement.
+
 ```javascript
 const epyc = require("epyc");
 
 epyc.get('/', (req, res) => res.send('Hello World'));
 
 epyc.bootstrap(8080);
+
+```
+
+## Plugins
+
+You can create your own plugin, publish it or use it yourself. this is how you use a plugin.
+
+```javascript
+
+const your_plugin = (req, res) => {
+    res.send("my plugin is running");
+};
+
+epyc.use(your_plugin);
 
 ```
 

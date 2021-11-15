@@ -16,5 +16,9 @@
   "dependencies": {
     "qs": "^6.10.1",
     "url-pattern": "^1.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-google": "^0.14.0"
   }
 }

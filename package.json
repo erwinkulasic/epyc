@@ -1,24 +1,32 @@
 {
-  "name": "epyc",
-  "version": "1.0.2",
-  "description": "epyc is a small, lightweight node.js server.",
-  "main": "index.js",
-  "keywords": [
-    "web",
-    "server",
-    "framework",
-    "api",
-    "app"
-  ],
-  "author": "erwinkulasic",
-  "repository": "git://github.com/erwinkulasic/epyc.git",
-  "license": "MIT",
-  "dependencies": {
-    "qs": "^6.10.1",
-    "url-pattern": "^1.0.3"
-  },
-  "devDependencies": {
-    "eslint": "^8.2.0",
-    "eslint-config-google": "^0.14.0"
-  }
+	"name": "epyc",
+	"version": "1.0.3",
+	"description": "epyc is a small, lightweight node.js server.",
+	"main": "index.js",
+	"keywords": [
+		"web",
+		"server",
+		"framework",
+		"api",
+		"app"
+	],
+	"author": "erwinkulasic",
+	"repository": "git://github.com/erwinkulasic/epyc.git",
+	"license": "MIT",
+	"scripts": {
+		"test:local": "nodemon .",
+		"test:github": "node test.js"
+	},
+	"dependencies": {
+		"qs": "^6.10.1",
+		"url-pattern": "^1.0.3"
+	},
+	"devDependencies": {
+		"eslint": "^8.2.0",
+		"eslint-config-google": "^0.14.0"
+	},
+	"bugs": {
+		"url": "https://github.com/erwinkulasic/epyc/issues"
+	},
+	"types": "./index.d.ts"
 }

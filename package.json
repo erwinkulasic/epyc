@@ -14,17 +14,14 @@
 	"repository": "git://github.com/erwinkulasic/epyc.git",
 	"license": "MIT",
 	"scripts": {
-		"test:local": "nodemon .",
-		"test:github": "node test.js"
+		"test": "nodemon test.js"
 	},
 	"dependencies": {
+		"@types/node": "^16.11.10",
 		"qs": "^6.10.1",
 		"url-pattern": "^1.0.3"
 	},
-	"devDependencies": {
-		"eslint": "^8.2.0",
-		"eslint-config-google": "^0.14.0"
-	},
+	"devDependencies": {},
 	"bugs": {
 		"url": "https://github.com/erwinkulasic/epyc/issues"
 	},

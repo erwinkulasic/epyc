@@ -1,5 +1,5 @@
 <p align="center">
-<img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc.png" width="600px"/>
+<img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header.png" width="600px"/>
 </p>
 
 <br>

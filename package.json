@@ -10,7 +10,7 @@
 		"api",
 		"app"
 	],
-	"author": "erwinkulasic",
+	"author": "Erwin <erwinkulasic@gmail.com>",
 	"repository": "git://github.com/erwinkulasic/epyc.git",
 	"license": "MIT",
 	"scripts": {

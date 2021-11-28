@@ -30,9 +30,8 @@ const ResponseFunctions = (response) => {
 
 const LookupRoute = (url) => {
 	for(let i = 0; i < routes.length; i++){
-		let value = routes[i].route.match(url);
-		if(value !== undefined)
-			return [value, routes[i]];
+		let params = routes[i].route.match(url);
+		if(params) return [params, routes[i]];
 	}
 	return [undefined, undefined];
 }
@@ -50,8 +49,8 @@ const GetRoute = (req) => {
 	return route;
 };
 
-(http.METHODS).forEach((method) => epyc[method.toLowerCase()] = (route, action) => 
-	routes.push({ method, action, route: new urlPattern(route) }));
+(http.METHODS).forEach((method) => epyc[method.toLowerCase()] = 
+	(route, action) => routes.push({ method, action, route: new urlPattern(route) }));
 
 epyc.bootstrap = (port = 3000, options = undefined, https = false, error = (req, res) => res.json({ error: req.url + ' not found.' })) =>
 		(routes && Object.keys(routes).length !== 0) ? Server(https, (req, res) => {

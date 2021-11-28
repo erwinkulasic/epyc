@@ -2,25 +2,35 @@ import { IncomingMessage, Server } from "http";
 
 declare interface response {
     /**
-     * Send a value to incoming request.
+     * Send any value to the incoming request.
      * @param value it accepts any value.
      */
-    send(value: any): any;
+    send(value: any): void;
 
     /**
      * sets a single header value for implicit headers
      * @param name It accepts the name of the header and it is case-insensitive.
      * @param value It accepts the name of the header and it is case-insensitive.
      */
-    setHeader(name: string, value: string): any;
+    setHeader(name: string, value: string): void;
 
     /**
-     * 
-     * @param code 
+     * sets the status code
+     * @param code The status code is a 3-digit HTTP status code
      */
-    status(code: number): any;
-    json(value: object): any;
-    html(value: string): any;
+    status(code: number): void;
+
+    /**
+     * Send a json object to the incoming request.
+     * @param value it accepts only json object 
+     */
+    json(value: object): void;
+
+    /**
+     * Send a html string to the incoming request.
+     * @param value 
+     */
+    html(value: string): void;
 }
 
 declare interface request extends IncomingMessage {

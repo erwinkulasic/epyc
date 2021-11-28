@@ -1,8 +1,23 @@
 import { IncomingMessage, Server } from "http";
 
 declare interface response {
+    /**
+     * Send a value to incoming request.
+     * @param value it accepts any value.
+     */
     send(value: any): any;
+
+    /**
+     * sets a single header value for implicit headers
+     * @param name It accepts the name of the header and it is case-insensitive.
+     * @param value It accepts the name of the header and it is case-insensitive.
+     */
     setHeader(name: string, value: string): any;
+
+    /**
+     * 
+     * @param code 
+     */
     status(code: number): any;
     json(value: object): any;
     html(value: string): any;
@@ -19,9 +34,10 @@ declare type RouteFunction = (req: request, res: response) => void;
  * Launches the server.
  * @param port default port is 3000 or set your own.
  * @param options adds options to the server e.g. for https key and certificate.
+ * @param options use https instead of http. (default false)
  * @param error handels error when for incoming request route doesn't exists.
  */
-export function bootstrap(port?: any, options?: object, error?: RouteFunction): void | Server;
+export function bootstrap(port?: any, options?: object, https?: boolean,  error?: RouteFunction): void | Server;
 
 //routes are from https://nodejs.dev/learn/the-nodejs-http-module#:~:text=%27ACL%27%2C,%27UNSUBSCRIBE%27
 // issue: m-search contains a symbol. "trying to fix next time"

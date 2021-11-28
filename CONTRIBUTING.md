@@ -1,4 +1,4 @@
-### __Hey, it's Erwin, thanks for finding my project here.__
+### __Hey, thanks for finding my project here.__
 
 :smile:
 As you have probably noticed, it is not a big project, but you can still tell me your suggestion or problem. 

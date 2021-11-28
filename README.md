@@ -1,5 +1,6 @@
 <p align="center">
-<img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header.png" width="600px"/>
+<img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header.png#gh-light-mode-only" width="600px"/>
+<img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header-light.png#gh-light-mode-only" width="600px"/>
 </p>
 
 <br>
@@ -19,7 +20,7 @@ please create an issue if you have suggestions for improvement or found an bug.
 
 # Installation
 
-Use [npm](https://www.npmjs.com/) or [yarn](https://classic.yarnpkg.com/en/) to install cakebase.
+Use [npm](https://www.npmjs.com/) or [yarn](https://classic.yarnpkg.com/en/) to install epyc.
 
 ```bash
 npm i epyc

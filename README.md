@@ -1,10 +1,10 @@
 <p align="center">
-<a href="https://github.com/erwinkulasic/epyc/#gh-dark-mode-only">
+<a href="https://github.com/erwinkulasic/epyc/">
     <img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header.png" width="600px"/>
 </a>
-<a href="https://github.com/erwinkulasic/epyc/#gh-light-mode-only">
+<!--<a href="https://github.com/erwinkulasic/epyc/#gh-light-mode-only">
     <img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header-light.png" width="600px"/>
-</a>
+</a>-->
 <br>
 
 <p align="center">

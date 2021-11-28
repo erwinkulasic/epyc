@@ -1,8 +1,10 @@
 <p align="center">
-<img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header.png#gh-dark-mode-only" width="600px"/>
-<img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header-light.png#gh-light-mode-only" width="600px"/>
-</p>
-
+<a href="https://github.com/erwinkulasic/epyc/#gh-dark-mode-only">
+    <img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header.png" width="600px"/>
+</a>
+<a href="https://github.com/erwinkulasic/epyc/#gh-light-mode-only">
+    <img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-header-light.png" width="600px"/>
+</a>
 <br>
 
 <p align="center">

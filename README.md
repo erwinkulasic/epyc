@@ -9,14 +9,18 @@
 <img alt="NPM" src="https://img.shields.io/npm/l/epyc?color=df8d34&style=flat-square">
 </p>
 
-# EPYC
+<br/>
+
+## **EPYC**
 The goal with this project is to create a simple and robust web server solution for api's, websites and much more. The plan is to keep the package size as small as possible and allow easy usability. 
 
 Why you should use this project? it's new, small, constantly being improved with updates and has typescript declarations.
 
 please create an issue if you have suggestions for improvement or found an bug.
 
-# Installation
+<br/>
+
+## **Installation**
 
 Use [npm](https://www.npmjs.com/) or [yarn](https://classic.yarnpkg.com/en/) to install epyc.
 
@@ -24,7 +28,9 @@ Use [npm](https://www.npmjs.com/) or [yarn](https://classic.yarnpkg.com/en/) to 
 npm i epyc
 ```
 
-## Usage
+<br/>
+
+## **Usage**
 
 ```javascript
 const epyc = require("epyc");
@@ -54,9 +60,12 @@ epyc.use(your_plugin);
 ```
 -->
 
-## Contributing
+<br/>
+
+## **Contributing**
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
+<br/>
 
-## License
+## **License**
 [MIT](https://github.com/erwinkulasic/epyc/blob/master/LICENSE)

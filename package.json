@@ -1,6 +1,6 @@
 {
 	"name": "epyc",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "epyc is a small, lightweight node.js server.",
 	"main": "index.js",
 	"keywords": [
@@ -10,8 +10,9 @@
 		"api",
 		"app"
 	],
-	"author": "Erwin <erwinkulasic@gmail.com>",
+	"author": "Erwin <erwinkulasic@gmail.com> (https://erwinkulasic.com)",
 	"repository": "git://github.com/erwinkulasic/epyc.git",
+	"homepage": "https://github.com/erwinkulasic/epyc#readme",
 	"license": "MIT",
 	"scripts": {
 		"test": "nodemon test.js"
@@ -23,7 +24,8 @@
 	},
 	"devDependencies": {},
 	"bugs": {
-		"url": "https://github.com/erwinkulasic/epyc/issues"
+		"url": "https://github.com/erwinkulasic/epyc/issues",
+		"email" : "erwinkulasic@gmail.com"
 	},
 	"types": "./index.d.ts"
 }

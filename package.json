@@ -15,7 +15,7 @@
 	"homepage": "https://github.com/erwinkulasic/epyc#readme",
 	"license": "MIT",
 	"scripts": {
-		"test": "node ./examples/hello.js",
+		"test": "node ./travis.prod.test.js",
 		"dev": "nodemon dev.test.js"
 	},
 	"dependencies": {

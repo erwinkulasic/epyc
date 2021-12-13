@@ -11,14 +11,6 @@
 
 <br/>
 
-## **EPYC**
-The goal with this project is to create a simple and robust web server solution for api's, websites and much more. The plan is to keep the package size as small as possible and allow easy usability. 
-
-Why you should use this project? it's new, small, constantly being improved with updates and has typescript declarations.
-
-please create an issue if you have suggestions for improvement or found an bug.
-
-<br/>
 
 ## **Installation**
 

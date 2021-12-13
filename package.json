@@ -1,6 +1,6 @@
 {
 	"name": "epyc",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"description": "epyc is a small, lightweight node.js server.",
 	"main": "index.js",
 	"keywords": [
@@ -15,7 +15,8 @@
 	"homepage": "https://github.com/erwinkulasic/epyc#readme",
 	"license": "MIT",
 	"scripts": {
-		"test": "nodemon test.js"
+		"test": "node ./examples/hello.js",
+		"dev": "nodemon dev.test.js"
 	},
 	"dependencies": {
 		"@types/node": "^16.11.10",

@@ -40,6 +40,9 @@ declare interface request extends IncomingMessage {
 
 declare type RouteFunction = (req: request, res: response) => void;
 
+//Middelware planed
+//declare type MiddelwareFunction = (req: request, res: response, next: void) => void;
+
 /**
  * Launches the server.
  * @param port default port is 3000 or set your own.

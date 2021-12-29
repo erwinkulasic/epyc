@@ -1,4 +1,4 @@
-import { IncomingMessage, Server } from "http";
+import { IncomingMessage, OutgoingMessage, Server } from "http";
 
 declare interface response {
     /**
@@ -40,17 +40,22 @@ declare interface request extends IncomingMessage {
 
 declare type RouteFunction = (req: request, res: response) => void;
 
-//Middelware planed
-//declare type MiddelwareFunction = (req: request, res: response, next: void) => void;
+declare type MiddelwareFunction = (req: request, res: OutgoingMessage, next: void) => void;
+
+/**
+ * Use Middelware.
+ * @param {void} middelware add a global middelware to your server.
+ */
+export function use(middelware: MiddelwareFunction) : void;
 
 /**
  * Launches the server.
- * @param port default port is 3000 or set your own.
- * @param options adds options to the server e.g. for https key and certificate.
- * @param options use https instead of http. (default false)
- * @param error handels error when for incoming request route doesn't exists.
+ * @param {number} port default port is 3000 or set your own.
+ * @param {object} options adds options to the server e.g. for https key and certificate.
+ * @param {boolean} options use https instead of http. (default false)
+ * @param {void} error handels error when for incoming request route doesn't exists.
  */
-export function bootstrap(port?: any, options?: object, https?: boolean,  error?: RouteFunction): void | Server;
+export function bootstrap(port?: number, options?: object, https?: boolean,  error?: RouteFunction): void | Server;
 
 //routes are from https://nodejs.dev/learn/the-nodejs-http-module#:~:text=%27ACL%27%2C,%27UNSUBSCRIBE%27
 // issue: m-search contains a symbol. "trying to fix next time"

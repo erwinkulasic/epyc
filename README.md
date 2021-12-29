@@ -36,22 +36,12 @@ epyc.post('/api/:id', (req, res) => res.json({ data: req.params.id, query: req.q
 epyc.bootstrap(8080);
 
 ```
+<br />
 
-<!--
-## Plugins
+### More Examples
 
-You can create your own plugin, publish it or use it yourself. this is how you use a plugin.
-
-```javascript
-
-const your_plugin = (req, res) => {
-    res.send("my plugin is running");
-};
-
-epyc.use(your_plugin);
-
-```
--->
+[hello.js](https://github.com/erwinkulasic/epyc/blob/master/examples/hello.js)
+[cors.js](https://github.com/erwinkulasic/epyc/blob/master/examples/cors.js)
 
 <br/>
 

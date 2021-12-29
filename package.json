@@ -26,7 +26,7 @@
 	"devDependencies": {},
 	"bugs": {
 		"url": "https://github.com/erwinkulasic/epyc/issues",
-		"email" : "erwinkulasic@gmail.com"
+		"email": "erwinkulasic@gmail.com"
 	},
 	"types": "./index.d.ts"
 }

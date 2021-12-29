@@ -14,24 +14,24 @@ const server = epyc.bootstrap(8080);
 
 console.log("fetch our route");
 http.get("http://localhost:8080/", (resp) => {
-  let data = '';
+    let data = '';
 
-  resp.on('data', (chunk) => {
-    data += chunk;
-  });
+    resp.on('data', (chunk) => {
+        data += chunk;
+    });
 
 
-  resp.on('end', () => {
-      let obj1 = JSON.parse(data);
-    console.log(`response ${data}`);
-    console.log("response is equale to our route object: " + util.isDeepStrictEqual(obj1, obj))
-    console.log("Node application is running without any problems.");
-    server.close();
-  });
+    resp.on('end', () => {
+        let obj1 = JSON.parse(data);
+        console.log(`response ${data}`);
+        console.log("response is equale to our route object: " + util.isDeepStrictEqual(obj1, obj))
+        console.log("Node application is running without any problems.");
+        server.close();
+    });
 
 }).on("error", (err) => {
-  console.log("Error: " + err.message);
-  server.close();
+    console.log("Error: " + err.message);
+    server.close();
 });
 
 

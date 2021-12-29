@@ -4,7 +4,7 @@ const [http, https, urlPattern, queryStr] = [
 	require('url-pattern'),
 	require('qs')];
 
-let epyc = {}, routes = [];
+let epyc = {}, routes = [], plugins = [];
 
 const Server = (useHttps, listener, port, options) =>
 	(useHttps ? https : http)
@@ -50,12 +50,23 @@ const GetRoute = (req) => {
 (http.METHODS).forEach((method) =>
 	(epyc[method.toLowerCase()] = (route, task) => routes.push({ method, task, route: new urlPattern(route) })));
 
+epyc.use = (middelware) => {
+	if(typeof middelware === 'function') plugins.push(middelware);
+};
+
+const Activator = (req, res, index) => {
+	plugins[index](req, res, () => {
+		if(index + 1 < plugins.length) Activator(req, res, index + 1);
+	});
+};
+
 epyc.bootstrap = (
 	port = 3000, 
 	options = undefined, 
 	https = false, 
 	error = (req, res) => res.json({ error: req.url + ' not found.' })) =>
 		(routes && Object.keys(routes).length !== 0) ? Server(https, (req, res) => {
+				if(plugins.length !== 0) Activator(req, res, 0);
 				const route = GetRoute(req);
 				(route && route.method === req.method) ? route.task(req, ResponseFunctions(res)) : error(req, ResponseFunctions(res));
 		}, port, options) : console.log("epyc: routes aren't defined.");

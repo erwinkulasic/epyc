@@ -1,4 +1,4 @@
-const epyc = require('../index');
+const epyc = require('epyc');
 const cors = require('cors');
 
 epyc.use(cors());

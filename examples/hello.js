@@ -1,4 +1,4 @@
-const epyc = require('../index');
+const epyc = require('epyc');
 
 epyc.get('/', (req, res) => res.json({ Hello: "World" }));
 

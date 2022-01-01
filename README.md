@@ -42,6 +42,7 @@ epyc.bootstrap(8080);
 
 [hello.js](https://github.com/erwinkulasic/epyc/blob/master/examples/hello.js)
 [cors.js](https://github.com/erwinkulasic/epyc/blob/master/examples/cors.js)
+[socket.js](https://github.com/erwinkulasic/epyc/blob/master/examples/socket.js)
 
 <br/>
 

@@ -1,14 +1,16 @@
 {
 	"name": "epyc",
-	"version": "1.0.7",
-	"description": "epyc is a small, lightweight node.js server.",
+	"version": "1.0.8",
+	"description": "epyc is a lightweight nodejs server.",
 	"main": "index.js",
 	"keywords": [
 		"web",
 		"server",
 		"framework",
 		"api",
-		"app"
+		"app",
+		"middelware",
+		"node"
 	],
 	"author": "Erwin <erwinkulasic@gmail.com> (https://erwinkulasic.com)",
 	"repository": "git://github.com/erwinkulasic/epyc.git",

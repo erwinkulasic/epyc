@@ -40,7 +40,7 @@ const RouteHandler = (req, res, error) => {
 	const [url, query] = req.url.split('?');
 	const [params, route] = LookupRoute(url);
 
-	if (params === undefined || route === undefined) {
+	if (params === undefined || route === undefined || req.method !== route.method) {
 		error(req, ResponseFunctions(res));
 		return;
 	}

@@ -1,6 +1,6 @@
 {
 	"name": "epyc",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "epyc is a lightweight nodejs server.",
 	"main": "index.js",
 	"keywords": [
@@ -10,7 +10,8 @@
 		"api",
 		"app",
 		"middelware",
-		"node"
+		"node",
+		"fast"
 	],
 	"author": "Erwin <erwinkulasic@gmail.com> (https://erwinkulasic.com)",
 	"repository": "git://github.com/erwinkulasic/epyc.git",
@@ -30,5 +31,8 @@
 		"url": "https://github.com/erwinkulasic/epyc/issues",
 		"email": "erwinkulasic@gmail.com"
 	},
-	"types": "./index.d.ts"
+	"types": "./index.d.ts",
+	"engines": {
+		"node": ">= 6.0.0"
+	}
 }

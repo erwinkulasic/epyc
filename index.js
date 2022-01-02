@@ -1,11 +1,14 @@
-const Http = require('http'),
-    Https = require('https'),
-    UrlPattern = require('url-pattern'),
-    QueryStrings = require('qs');
+const Http          = require('http'),
+      Https         = require('https'),
+      UrlPattern    = require('url-pattern'),
+      QueryStrings  = require('qs');
 
-const ErrorTemplate = (req, res) => res.json({ error: req.url + ' not found or a mistake happend.' });
+const ErrorTemplate = (req, res) => 
+      res.json({ error: req.url + ' not found or a mistake happend.' });
 
-let epyc = {}, routes = [], plugins = [];
+let epyc        = {}, 
+    routes      = [], 
+    plugins     = [];
 
 const Server = (useHttps, port, options, handler) =>
     (useHttps ? Https : Http)
@@ -37,20 +40,20 @@ const LookupRoute = (url) => {
 };
 
 const RouteHandler = (req, res, error) => {
-    let index = 0;
     const [url, query] = req.url.split('?');
     const [params, route] = LookupRoute(url);
+    let index = 0;
 
     if (params === undefined || route === undefined || req.method !== route.method) {
-        error(req, ResponseFunctions(res));
-        return;
+        error(req, ResponseFunctions(res)); return;
     }
 
     req.params = params;
     req.query = QueryStrings.parse(query);
 
-    const Activator = (req, res) => plugins[index](req, res, () => {
-        index++;
+    const Activator = (req, res) => plugins[index](req, res, () => { 
+        index++; 
+
         if (index < plugins.length) Activator(req, res)
         else route.handler(req, ResponseFunctions(res));
     })
@@ -59,12 +62,22 @@ const RouteHandler = (req, res, error) => {
 };
 
 for (let method of Http.METHODS) {
-    epyc[method.toLowerCase()] = (route, handler) => routes.push({ method, handler, route: new UrlPattern(route) });
+    epyc[method.toLowerCase()] = (route, handler) => 
+        routes.push({ 
+            method, 
+            handler, 
+            route: new UrlPattern(route) 
+        });
 }
 
 epyc.use = (middelware) => (typeof middelware === 'function') ? plugins.push(middelware) : undefined;
 
-epyc.bootstrap = (port = 3000, options = undefined, https = false, error = ErrorTemplate) =>
-    (routes && routes.length !== 0) ? Server(https, port, options, (req, res) => RouteHandler(req, res, error)) : undefined;
+epyc.bootstrap = (
+    port        = 3000, 
+    options     = undefined, 
+    https       = false, 
+    error       = ErrorTemplate) => (routes && routes.length !== 0) 
+    ? Server(https, port, options, (req, res) => RouteHandler(req, res, error)) 
+    : undefined;
 
 module.exports = epyc;

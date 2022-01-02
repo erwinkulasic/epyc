@@ -1,14 +1,14 @@
-const [http, https, urlPattern, queryStr] = [
-	require('http'),
-	require('https'),
-	require('url-pattern'),
-	require('qs')];
+const Http = require('http'),
+	Https = require('https'),
+	UrlPattern = require('url-pattern'),
+	QueryStrings = require('qs'),
+	ErrorTemplate = (req, res) => res.json({ error: req.url + ' not found or a mistake happend.' });
 
 let epyc = {}, routes = [], plugins = [];
 
-const Server = (useHttps, listener, port, options) =>
-	(useHttps ? https : http)
-		.createServer(options, listener)
+const Server = (useHttps, port, options, handler) =>
+	(useHttps ? Https : Http)
+		.createServer(options, handler)
 		.listen(port);
 
 const ResponseFunctions = (response) => {
@@ -35,40 +35,35 @@ const LookupRoute = (url) => {
 	return [undefined, undefined];
 };
 
-const GetRoute = (req) => {
+const RouteHandler = (req, res, error) => {
+	let index = 0;
 	const [url, query] = req.url.split('?');
 	const [params, route] = LookupRoute(url);
 
-	if (params === undefined) return undefined;
+	if (params === undefined || route === undefined) {
+		error(req, ResponseFunctions(res));
+		return;
+	}
 
 	req.params = params;
-	req.query = queryStr.parse(query);
+	req.query = QueryStrings.parse(query);
 
-	return route;
+	const Activator = (req, res) => plugins[index](req, res, () => {
+		index++;
+		if (index < plugins.length) Activator(req, res)
+		else route.handler(req, ResponseFunctions(res));
+	})
+
+	plugins.length !== 0 ? Activator(req, res) : route.handler(req, ResponseFunctions(res));
 };
 
-(http.METHODS).forEach((method) =>
-	(epyc[method.toLowerCase()] = (route, task) => routes.push({ method, task, route: new urlPattern(route) })));
+for (let method of Http.METHODS) {
+	epyc[method.toLowerCase()] = (route, handler) => routes.push({ method, handler, route: new UrlPattern(route) });
+}
 
-epyc.use = (middelware) => {
-	if(typeof middelware === 'function') plugins.push(middelware);
-};
+epyc.use = (middelware) => (typeof middelware === 'function') ? plugins.push(middelware) : undefined;
 
-const Activator = (req, res, index) => {
-	plugins[index](req, res, () => {
-		if(index + 1 < plugins.length) Activator(req, res, index + 1);
-	});
-};
-
-epyc.bootstrap = (
-	port = 3000, 
-	options = undefined, 
-	https = false, 
-	error = (req, res) => res.json({ error: req.url + ' not found.' })) =>
-		(routes && Object.keys(routes).length !== 0) ? Server(https, (req, res) => {
-				if(plugins.length !== 0) Activator(req, res, 0);
-				const route = GetRoute(req);
-				(route && route.method === req.method) ? route.task(req, ResponseFunctions(res)) : error(req, ResponseFunctions(res));
-		}, port, options) : console.log("epyc: routes aren't defined.");
+epyc.bootstrap = (port = 3000, options = undefined, https = false, error = ErrorTemplate) =>
+	(routes && routes.length !== 0) ? Server(https, port, options, (req, res) => RouteHandler(req, res, error)) : undefined;
 
 module.exports = epyc;

@@ -38,15 +38,15 @@ declare interface request extends IncomingMessage {
     query: object | undefined;
 }
 
-declare type RouteFunction = (req: request, res: response) => void;
+declare type RouteHandler = (req: request, res: response) => void;
 
-declare type MiddelwareFunction = (req: request, res: OutgoingMessage, next: void) => void;
+declare type MiddelwareHandler = (req: request, res: OutgoingMessage, next: void) => void;
 
 /**
  * Use Middelware.
  * @param {void} middelware add a global middelware to your server.
  */
-export function use(middelware: MiddelwareFunction) : void;
+export function use(middelware: MiddelwareHandler) : void;
 
 /**
  * Launches the server.
@@ -55,43 +55,75 @@ export function use(middelware: MiddelwareFunction) : void;
  * @param {boolean} options use https instead of http. (default false)
  * @param {void} error handels error when for incoming request route doesn't exists.
  */
-export function bootstrap(port?: number, options?: object, https?: boolean,  error?: RouteFunction): void | Server;
+export function bootstrap(port?: number, options?: object, https?: boolean,  error?: RouteHandler): void | Server;
 
 //routes are from https://nodejs.dev/learn/the-nodejs-http-module#:~:text=%27ACL%27%2C,%27UNSUBSCRIBE%27
 // issue: m-search contains a symbol. "trying to fix next time"
-export function get(route: string, action: RouteFunction): void;
-export function post(route: string, action: RouteFunction): void;
-export function put(route: string, action: RouteFunction): void;
-export function patch(route: string, action: RouteFunction): void;
-export function acl(route: string, action: RouteFunction): void;
-export function bind(route: string, action: RouteFunction): void;
-export function checkout(route: string, action: RouteFunction): void;
-export function connect(route: string, action: RouteFunction): void;
-export function copy(route: string, action: RouteFunction): void;
-export function head(route: string, action: RouteFunction): void;
-export function link(route: string, action: RouteFunction): void;
-export function lock(route: string, action: RouteFunction): void;
-export function merge(route: string, action: RouteFunction): void;
-export function mkactivity(route: string, action: RouteFunction): void;
-export function mkcalendar(route: string, action: RouteFunction): void;
-export function mkcol(route: string, action: RouteFunction): void;
-export function move(route: string, action: RouteFunction): void;
-export function notify(route: string, action: RouteFunction): void;
-export function options(route: string, action: RouteFunction): void;
-export function propfind(route: string, action: RouteFunction): void;
-export function proppatch(route: string, action: RouteFunction): void;
-export function purge(route: string, action: RouteFunction): void;
-export function rebind(route: string, action: RouteFunction): void;
-export function report(route: string, action: RouteFunction): void;
-export function search(route: string, action: RouteFunction): void;
-export function subscribe(route: string, action: RouteFunction): void;
-export function trace(route: string, action: RouteFunction): void;
-export function unbind(route: string, action: RouteFunction): void;
-export function unlink(route: string, action: RouteFunction): void;
-export function unlock(route: string, action: RouteFunction): void;
-export function unsubscribe(route: string, action: RouteFunction): void;
+export function get(route: string, handler: RouteHandler): void;
+export function post(route: string, handler: RouteHandler): void;
+export function put(route: string, handler: RouteHandler): void;
+export function patch(route: string, handler: RouteHandler): void;
+export function acl(route: string, handler: RouteHandler): void;
+export function bind(route: string, handler: RouteHandler): void;
+export function checkout(route: string, handler: RouteHandler): void;
+export function connect(route: string, handler: RouteHandler): void;
+export function copy(route: string, handler: RouteHandler): void;
+export function head(route: string, handler: RouteHandler): void;
+export function link(route: string, handler: RouteHandler): void;
+export function lock(route: string, handler: RouteHandler): void;
+export function merge(route: string, handler: RouteHandler): void;
+export function mkactivity(route: string, handler: RouteHandler): void;
+export function mkcalendar(route: string, handler: RouteHandler): void;
+export function mkcol(route: string, handler: RouteHandler): void;
+export function move(route: string, handler: RouteHandler): void;
+export function notify(route: string, handler: RouteHandler): void;
+export function options(route: string, handler: RouteHandler): void;
+export function propfind(route: string, handler: RouteHandler): void;
+export function proppatch(route: string, handler: RouteHandler): void;
+export function purge(route: string, handler: RouteHandler): void;
+export function rebind(route: string, handler: RouteHandler): void;
+export function report(route: string, handler: RouteHandler): void;
+export function search(route: string, handler: RouteHandler): void;
+export function subscribe(route: string, handler: RouteHandler): void;
+export function trace(route: string, handler: RouteHandler): void;
+export function unbind(route: string, handler: RouteHandler): void;
+export function unlink(route: string, handler: RouteHandler): void;
+export function unlock(route: string, handler: RouteHandler): void;
+export function unsubscribe(route: string, handler: RouteHandler): void;
 
-declare function _delete(route: string, action: RouteFunction): void;
+//OVERLOAD WITH MIDDELWARE
+export function get(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function post(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function put(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function patch(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function acl(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function bind(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function checkout(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function connect(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function copy(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function head(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function link(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function lock(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function merge(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function mkactivity(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function mkcalendar(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function mkcol(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function move(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function notify(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function options(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function propfind(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function proppatch(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function purge(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function rebind(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function report(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function search(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function subscribe(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function trace(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function unbind(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function unlink(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function unlock(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+export function unsubscribe(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
+
+declare function _delete(route: string, handler: RouteHandler): void;
+declare function _delete(route: string, middelware: MiddelwareHandler, handler: RouteHandler): void;
 export { _delete as delete }
-
-

@@ -1,6 +1,6 @@
 {
 	"name": "epyc",
-	"version": "1.0.9",
+	"version": "1.1.0",
 	"description": "epyc is a lightweight nodejs server.",
 	"main": "index.js",
 	"keywords": [

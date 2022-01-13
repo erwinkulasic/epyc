@@ -1,4 +1,5 @@
-import { IncomingMessage, OutgoingMessage, Server } from "http";
+import { IncomingMessage, OutgoingMessage, Server, ServerOptions } from "http";
+import * as https from "https";
 
 declare interface response {
     /**
@@ -51,11 +52,11 @@ export function use(middelware: MiddelwareHandler) : void;
 /**
  * Launches the server.
  * @param {number} port default port is 3000 or set your own.
- * @param {object} options adds options to the server e.g. for https key and certificate.
- * @param {boolean} options use https instead of http. (default false)
+ * @param {object} options adds options to the server e.g. for https key and certificate. (default undefined)
+ * @param {boolean} https use https instead of http. (default false)
  * @param {void} error handels error when for incoming request route doesn't exists.
  */
-export function bootstrap(port?: number, options?: object, https?: boolean,  error?: RouteHandler): void | Server;
+export function bootstrap(port?: number, options?: ServerOptions | https.ServerOptions, https?: boolean,  error?: RouteHandler): void | Server;
 
 //routes are from https://nodejs.dev/learn/the-nodejs-http-module#:~:text=%27ACL%27%2C,%27UNSUBSCRIBE%27
 // issue: m-search contains a symbol. "trying to fix next time"

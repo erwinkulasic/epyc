@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://github.com/erwinkulasic/epyc/">
-    <img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/assets/epyc-logo.png" width="600px"/>
+    <img alt="epyc" src="https://raw.githubusercontent.com/erwinkulasic/epyc/master/.github/assets/epyc-logo.png" width="600px"/>
 </a>
 </p>
 <p align="center">

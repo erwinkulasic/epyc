@@ -1,110 +1,82 @@
-const http = require('http');
 const https = require('https');
-const queryStrings = require('qs');
-const urlPattern = require('url-pattern');
+const http = require('http');
+const { match } = require("path-to-regexp");
+const response = require('./response');
+const { onError } = require('./utils');
+const url = require('parseurl');
 
-const prepareRoutes = function (routes) {
-  
-};
+function handler(req, res, routes, middleware, options) {
+    const { pathname, query } = url(req);
+    const route = lookup(pathname, routes);
 
-const prepareUrl = function (url) {
-
-  const [url, query] = req.url.split('?');
-  const queryParams = queryStrings.parse(query);
-
-  return {
-    url,
-    queryParams
-  };
-
-};
-
-const lookupRoutes = function (routes, url, method) {
-
-  for (let i = 0; i < routes.length; i++) {
-
-    let route = routes[i];
-    const params = route.path.match(url);
-
-    if (params && route.method === method) {
-
-      route.params = params;
-      return route;
+    if (route && route.method === req.method) {
+        req.params = route.params;
+        req.query = query;
+        
+        const chain = [...middleware, ...route.handlers];
+        const next = () => chain.shift()(req, res, next);
+        next();
+    } else {
+        (options?.onError ? options.onError : onError)(req, res);
     }
-  }
-
-};
-
-const handler = function (routes, request, response) {
-
-  const { url, queryParams } = prepareUrl(request.url);
-  const route = lookupRoutes(routes, url, request.method);
-
-  if (route) {
-
-    request.query = queryParams;
-    request.params = route.params;
-
-    route.handlers(request, response);
-  }
-
 }
 
-const initalizeServer = function (config) {
+function lookup(url, routes) {
+    for (let i = 0; i < routes.length; i++) {
+        const isValid = routes[i].path(url);
 
-  return (config.options.secure
-    ? https
-    : http
-  ).createServer(config.options, config.handler)
-   .listen(config.port);
+        if (isValid) {
+            return {
+                ...routes[i],
+                params: isValid.params
+            };
+        }
+    }
 
+    return undefined;
 }
 
-const generateRoutes = function (routes) {
-
-  return http.METHODS.map(
-    method => (
-      [method.toLowerCase()] = (path, ...handlers) => routes.push({
-        path: new urlPattern(path),
-        method,
-        handlers
-      })
-    )
-  );
-
+function generateMethods(routes) {
+    return http.METHODS.map(method => ({
+        [method.toLowerCase()]: (path, ...handlers) => routes.push({
+            method,
+            path: match(path, { decode: decodeURIComponent }),
+            handlers
+        })
+    })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
 }
 
-const InstanceWrapper = function () {
+function getServer(handler, options) {
+    const serverInstance = options?.https
+        ? https
+        : http;
 
-  let internal = {
-    routes: [],
-    plugins: [],
-  };
+    return serverInstance
+        .createServer(options, handler);
+}
 
-  const methods = generateRoutes(internal.routes);
+function epyc() {
+    let routes = [];
+    let middleware = [];
 
-  return {
-    bootstrap(port, options) {
+    return {
+        ...generateMethods(routes),
 
-      const config = {
-        port,
-        options,
-        handler: (request, response) => handler(
-          prepareRoutes(
-            internal.routes
-          ), 
-          request, response)
-      }
+        bootstrap(port, options = { 
+            ServerResponse: response
+        }) {
+            const server = getServer((req, res) => handler(req, res, routes, middleware, options), options);
+            return server.listen(port, options?.hostname, undefined, options?.listener);
+        },
 
-      const e = () => {}
+        use(handler) {
+            middleware.push(handler);
+        },
+    }
+}
 
-      const server = initalizeServer(config);
-      return server;
-    },
+const instance = { ...epyc(), onError };
 
-    ...methods
-  };
-
-};
-
-module.exports = InstanceWrapper;
+module.exports = instance;
+module.exports.epyc = instance;
+module.exports.default = instance;

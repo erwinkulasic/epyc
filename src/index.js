@@ -66,7 +66,7 @@ function epyc() {
             ServerResponse: response
         }) {
             const server = getServer((req, res) => handler(req, res, routes, middleware, options), options);
-            return server.listen(port, options?.hostname, undefined, options?.listener);
+            return server.listen(port, options?.hostname, undefined, options?.listen);
         },
 
         use(handler) {

@@ -1,6 +1,23 @@
 import http from "http";
 import * as https from "https";
 
+declare interface Options extends http.ServerOptions, https.ServerOptions  {
+    /**
+     * Switch to https.
+     */
+    https: boolean;
+
+    /**
+     * Sets the hostname.
+     */
+    hostname: string;
+
+    /**
+     * Listen to the server.
+     */
+    listen(): void;
+}
+
 declare interface response extends http.OutgoingMessage, https.OutgoingMessage {
     /**
      * Send any value to the incoming request.
@@ -9,14 +26,14 @@ declare interface response extends http.OutgoingMessage, https.OutgoingMessage {
     send(value: any): void;
 
     /**
-     * sets a single header value for implicit headers
+     * Sets a single header value for implicit headers
      * @param name It accepts the name of the header and it is case-insensitive.
      * @param value It accepts the name of the header and it is case-insensitive.
      */
     setHeader(name: string, value: string): void;
 
     /**
-     * sets the status code
+     * Sets the status code
      * @param code The status code is a 3-digit HTTP status code
      */
     status(code: number): void;
@@ -52,7 +69,7 @@ export function use(middelware: Handler) : void;
  * @param {number} port default port is 3000 or set your own.
  * @param {object} options adds options to the server e.g. for https key and certificate, ... (default undefined)
  */
-export function bootstrap(port?: number, options?: http.ServerOptions | https.ServerOptions): void | http.Server | https.Server;
+export function bootstrap(port?: number, options?: Options): void | http.Server | https.Server;
 
 //routes are from https://nodejs.dev/learn/the-nodejs-http-module#:~:text=%27ACL%27%2C,%27UNSUBSCRIBE%27
 // issue: m-search contains a symbol. "trying to fix next time"

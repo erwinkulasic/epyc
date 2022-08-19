@@ -1,6 +1,6 @@
 {
 	"name": "epyc",
-	"version": "1.1.0",
+	"version": "1.2.2",
 	"description": "epyc is a lightweight nodejs server.",
 	"main": "./src/index.js",
 	"keywords": [
@@ -21,7 +21,7 @@
 	"homepage": "https://github.com/erwinkulasic/epyc#readme",
 	"license": "MIT",
 	"scripts": {
-		"test": "node ./.travis/travis.prod.test.js",
+		"test": "node ./test/travis.test.js",
 		"dev": "nodemon ./.internal/dev/dev.test.js"
 	},
 	"bugs": {

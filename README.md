@@ -4,10 +4,10 @@
 </a>
 </p>
 <p align="center">
-<img alt="TRAVIS" src="https://img.shields.io/travis/erwinkulasic/epyc?color=df8d34&logo=travis&style=flat-square">
-<img alt="NPM" src="https://img.shields.io/npm/dm/epyc?color=df8d34&logo=npm&style=flat-square">
-<img alt="GitHub issues" src="https://img.shields.io/github/issues/erwinkulasic/epyc?color=df8d34&logo=github&style=flat-square">
-<img alt="NPM" src="https://img.shields.io/npm/l/epyc?color=df8d34&style=flat-square">
+<img alt="TRAVIS" src="https://img.shields.io/travis/erwinkulasic/epyc?color=df8&logo=travis&style=flat-square">
+<img alt="NPM" src="https://img.shields.io/npm/dm/epyc?color=171717&logo=npm&style=flat-square">
+<img alt="GitHub issues" src="https://img.shields.io/github/issues/erwinkulasic/epyc?color=171717&logo=github&style=flat-square">
+<img alt="NPM" src="https://img.shields.io/npm/l/epyc?color=171717&style=flat-square">
 </p>
 
 <br/>

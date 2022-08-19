@@ -1,82 +1,90 @@
-const https = require('https');
 const http = require('http');
-const { match } = require("path-to-regexp");
-const response = require('./response');
-const { onError } = require('./utils');
+const https = require('https');
 const url = require('parseurl');
+const { match } = require('path-to-regexp');
 
-function handler(req, res, routes, middleware, options) {
-    const { pathname, query } = url(req);
-    const route = lookup(pathname, routes);
+function responseWrapper() {
+    const instance = http.ServerResponse;
 
-    if (route && route.method === req.method) {
-        req.params = route.params;
-        req.query = query;
-        
-        const chain = [...middleware, ...route.handlers];
-        const next = () => chain.shift()(req, res, next);
-        next();
-    } else {
-        (options?.onError ? options.onError : onError)(req, res);
-    }
+    Object.assign(instance.prototype, {
+        send(value) {
+            this.end(value)
+        },
+        status(code) {
+            this.writeHead(code)
+        },
+        json(value) {
+            this.setHeader('Content-Type', 'application/json')
+            this.end(JSON.stringify(value))
+        },
+        html(value) {
+            this.setHeader('Content-Type', 'text/html')
+            this.end(value)
+        },
+        redirect(url) {
+            this.writeHead(301, { Location: url })
+            this.end()
+        }
+    })
+
+    return instance;
 }
 
-function lookup(url, routes) {
+function handler(req, res, routes, middelware) {
+    const { pathname, query } = url(req);
+
     for (let i = 0; i < routes.length; i++) {
-        const isValid = routes[i].path(url);
+        const route = routes[i];
+        const isValid = route.path(pathname);
 
         if (isValid) {
-            return {
-                ...routes[i],
-                params: isValid.params
-            };
+            req.params = isValid.params;
+            req.query = query;
+
+            const chain = [...middelware, ...route.handlers];
+            const next = () => chain.shift()(req, res, next);
+            next();
         }
     }
-
-    return undefined;
 }
 
-function generateMethods(routes) {
-    return http.METHODS.map(method => ({
-        [method.toLowerCase()]: (path, ...handlers) => routes.push({
-            method,
-            path: match(path, { decode: decodeURIComponent }),
-            handlers
-        })
-    })).reduce((acc, curr) => ({ ...acc, ...curr }), {});
-}
-
-function getServer(handler, options) {
-    const serverInstance = options?.https
-        ? https
-        : http;
-
-    return serverInstance
-        .createServer(options, handler);
+function* getMethods(routes) {
+    for (const methods of http.METHODS) {
+        yield [
+            methods.toLowerCase(),
+            (path, ...handlers) => routes.push({ methods, path: match(path, { decode: decodeURIComponent }), handlers })
+        ];
+    }
 }
 
 function epyc() {
-    let routes = [];
-    let middleware = [];
+    let routes = []
+    let middelware = []
 
-    return {
-        ...generateMethods(routes),
+    let structure = {
+        bootstrap(port, options) {
+            const opt = { ...(options || {}), ServerResponse: responseWrapper() }
 
-        bootstrap(port, options = { 
-            ServerResponse: response
-        }) {
-            const server = getServer((req, res) => handler(req, res, routes, middleware, options), options);
-            return server.listen(port, options?.hostname, undefined, options?.listen);
+            const server = (opt.https ? https : http).createServer(
+                opt, (req, res) => handler(req, res, routes, middelware)
+            );
+
+            server.listen(port, opt?.hostname, undefined, opt?.listen);
         },
+        use(middelware) {
+            middelware.push(middelware)
+        }
+    };
 
-        use(handler) {
-            middleware.push(handler);
-        },
+    for (const [name, action] of getMethods(routes)) {
+        structure[name] = action;
     }
+
+    return structure;
 }
 
-const instance = { ...epyc(), onError };
+const module = epyc();
 
-module.exports = instance;
-module.exports.epyc = instance;
-module.exports.default = instance;
+module.exports = module;
+module.exports.default = module;
+module.exports.epyc = module;

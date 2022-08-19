@@ -69,7 +69,7 @@ function epyc() {
                 opt, (req, res) => handler(req, res, routes, middelware)
             );
 
-            server.listen(port, opt?.hostname, undefined, opt?.listen);
+            return server.listen(port, opt?.hostname, undefined, opt?.listen);
         },
         use(middelware) {
             middelware.push(middelware)
@@ -83,8 +83,8 @@ function epyc() {
     return structure;
 }
 
-const module = epyc();
+const instance = epyc();
 
-module.exports = module;
-module.exports.default = module;
-module.exports.epyc = module;
+module.exports = instance;
+module.exports.default = instance;
+module.exports.epyc = instance;

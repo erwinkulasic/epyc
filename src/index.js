@@ -3,6 +3,16 @@ const https = require('https');
 const url = require('parseurl');
 const { match } = require('path-to-regexp');
 
+function onError(req, res) {
+    res.statusCode = 500;
+
+    res.end(
+        JSON.stringify(
+            { error: "Internal Server Error", url: req.url, message: "Something went wrong", status: res.statusCode }
+        )
+    );
+}
+
 function responseWrapper() {
     const instance = http.ServerResponse;
 
@@ -30,21 +40,30 @@ function responseWrapper() {
     return instance;
 }
 
-function handler(req, res, routes, middelware) {
-    const { pathname, query } = url(req);
-
+function lookup(pathname, routes) {
     for (let i = 0; i < routes.length; i++) {
         const route = routes[i];
         const isValid = route.path(pathname);
 
         if (isValid) {
-            req.params = isValid.params;
-            req.query = query;
-
-            const chain = [...middelware, ...route.handlers];
-            const next = () => chain.shift()(req, res, next);
-            next();
+            return { ...route, params: isValid.params };
         }
+    }
+}
+
+function handler(req, res, routes, middelware) {
+    const { pathname, query } = url(req);
+    const route = lookup(pathname, routes);
+
+    if(route && route.methods === req.method) {
+        req.query = query;
+        req.params = route.params;
+
+        const chain = [...route.handlers, ...middelware];
+        const next = () => chain.pop()(req, res, next);
+        next();
+    } else {
+        onError(req, res);
     }
 }
 

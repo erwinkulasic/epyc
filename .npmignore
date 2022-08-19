@@ -3,6 +3,6 @@ node_modules
 CONTRIBUTING.md
 SECURITY.md
 .internal
-.travis
-.examples
+.test
+examples
 .github

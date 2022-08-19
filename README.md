@@ -26,15 +26,11 @@ npm i epyc
 ### **Usage**
 
 ```javascript
-const epyc = require("epyc");
+const app = require("epyc");
 
-epyc.get('/', (req, res) => res.send('Hello World'));
+app.get('/', (request, response) => response.send('Hello World'));
 
-epyc.post('/api/:id', (req, res) => res.json({ data: req.params.id, query: req.query }));
-
-
-epyc.bootstrap(8080);
-
+app.bootstrap(8080);
 ```
 <br />
 

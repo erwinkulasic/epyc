@@ -71,7 +71,7 @@ function* getMethods(routes) {
     for (const methods of http.METHODS) {
         yield [
             methods.toLowerCase(),
-            (path, ...handlers) => routes.push({ methods, path: match(path, { decode: decodeURIComponent }), handlers })
+            (path, ...handlers) => routes.push({ methods, path: match(path, { decode: decodeURIComponent }), handlers: handlers.reverse() })
         ];
     }
 }

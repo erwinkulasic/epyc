@@ -15,7 +15,8 @@
 | 1.0.8   | :x:                |
 | 1.0.9   | :x:                |
 | 1.1.0   | :x:                |
-| 2.0.0   | :white_check_mark: |
+| 2.0.0   | :x:                |
+| 2.0.1   | :white_check_mark: |
 
 ## Reporting a Vulnerability
 Just report a Bug.
